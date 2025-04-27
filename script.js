@@ -16,7 +16,6 @@ async function submitSauce() {
         });
 
         if (response.ok) {
-            alert('Your sauce has been submitted!');
             redirectToSaucesPage();
         } else {
             alert('Failed to submit your sauce. Please try again.');

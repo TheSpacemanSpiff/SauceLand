@@ -8,8 +8,10 @@
 </head>
 <body>
     <h1>What's the best sauce in the world?</h1>
-    <input type="text" id="sauceInput" placeholder="Type your answer here...">
-    <button onclick="submitSauce()">Submit</button>
+    <form onsubmit="event.preventDefault(); submitSauce();">
+        <input type="text" id="sauceInput" placeholder="Type your answer here...">
+        <button type="submit">Submit</button>
+    </form>
     <script src="script.js"></script>
 </body>
 </html>
