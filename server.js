@@ -32,7 +32,7 @@ mongoose.connect('mongodb://localhost:27017/saucesDB', {
 // Define a schema and model
 const sauceSchema = new mongoose.Schema({
     sauce: { type: String, required: true },
-    country: { type: String, required: true },
+    country: { type: String, required: false },
 });
 
 const Sauce = mongoose.model('Sauce', sauceSchema);
