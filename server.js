@@ -65,6 +65,20 @@ app.get('/api/sauces', async (req, res) => {
     }
 });
 
+// Add a new API endpoint to fetch sauces with counts
+app.get('/api/sauces-with-counts', async (req, res) => {
+    try {
+        const sauces = await Sauce.aggregate([
+            { $group: { _id: "$sauce", count: { $sum: 1 } } },
+            { $sort: { count: -1 } } // Sort by count in descending order
+        ]);
+        res.json(sauces);
+    } catch (error) {
+        console.error('Error retrieving sauces with counts:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
