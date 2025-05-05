@@ -1,8 +1,42 @@
+const sauces = [
+    { name: "Mayonnaise", category: "Dip", country: "France" },
+    { name: "Bolognese", category: "Dish", country: "Italy" },
+    // Add 98 more sauces here...
+];
+
+async function populateSauceList() {
+    const sauceList = document.getElementById('sauceList');
+    sauceList.innerHTML = ''; // Clear existing options
+
+    try {
+        const response = await fetch('sauces.json');
+        if (response.ok) {
+            const sauces = await response.json();
+            sauces.forEach(sauce => {
+                const option = document.createElement('option');
+                option.value = sauce.name; // Only show the name of the sauce
+                sauceList.appendChild(option);
+            });
+        } else {
+            console.error('Failed to fetch sauces.json');
+        }
+    } catch (error) {
+        console.error('Error fetching sauces.json:', error);
+    }
+}
+
+// Call the function to populate the datalist on page load
+populateSauceList();
+
 async function submitSauce() {
     const input = document.getElementById('sauceInput').value;
 
-    if (!input) {
-        alert('Please enter a sauce!');
+    // Check if the input matches a valid sauce from the list
+    const isValidSauce = Array.from(document.getElementById('sauceList').options)
+        .some(option => option.value === input);
+
+    if (!isValidSauce) {
+        alert('Please select a valid sauce from the list!');
         return;
     }
 
