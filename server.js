@@ -69,8 +69,19 @@ app.get('/api/sauces', async (req, res) => {
 app.get('/api/sauces-with-counts', async (req, res) => {
     try {
         const sauces = await Sauce.aggregate([
-            { $group: { _id: "$sauce", count: { $sum: 1 } } },
-            { $sort: { count: -1 } } // Sort by count in descending order
+            // Filter out null values
+            { $match: { sauce: { $ne: null } } },
+            // Convert to lowercase for case-insensitive grouping
+            { $addFields: { 
+                lowercaseSauce: { $toLower: "$sauce" }
+            }},
+            // Group by lowercase sauce name
+            { $group: { 
+                _id: "$lowercaseSauce",
+                count: { $sum: 1 } 
+            }},
+            // Sort by count in descending order
+            { $sort: { count: -1 } }
         ]);
         res.json(sauces);
     } catch (error) {

@@ -8,12 +8,19 @@
 </head>
 <body>
     <h1>All Sauces (all saucisses)</h1>
-    <ul id="saucesList">
-        <!-- List of sauces will be dynamically populated here -->
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Vote</th>
+                <th>Sauce</th>
+                <th>Country</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody id="saucesTableBody">
+            <!-- Rows will be dynamically populated here -->
+        </tbody>
+    </table>
     <script src="script.js"></script>
-    <script>
-        fetchSaucesWithCounts();
-    </script>
 </body>
 </html>
